@@ -15,10 +15,10 @@ from qiskit import(
 from qiskit.tools.monitor import job_monitor
 
 class FullAdder:
-    def __init__(self, firstNumber, secondNumber, API=None):
+    def __init__(self, firstNumber, secondNumber, API=None, backend = 'ibmq_qasm_simulator'):
         self._firstNumber = self._int_to_binary(int(firstNumber))
         self._secondNumber = self._int_to_binary(int(secondNumber))
-        self._quantum_circuit(API)
+        self._quantum_circuit(API, backend)
 
     #Convert int number to binary
     def _int_to_binary(self, value, type=int):
@@ -28,7 +28,7 @@ class FullAdder:
             print(value + " Not valid integer, Please try again")
 
     #Create quantum circuit
-    def _quantum_circuit(self, API):
+    def _quantum_circuit(self, API, backend):
         number1 = len(self._firstNumber)
         number2 = len(self._secondNumber)
         if (number1 >= number2):
@@ -49,7 +49,7 @@ class FullAdder:
         #This is done to ensure the sum gates are fed with the correct input bit states
         self._sum_gates(n)
         #execute quantum circuit
-        self._execute(API)
+        self._execute(API, backend)
 
     #Setting up the registers using the values inputted
     def _setting_up_register(self, number1, number2):
@@ -90,9 +90,9 @@ class FullAdder:
         for i in range(n+1):
             self._qc.measure(self._q2[i], self._c[i])
                 
-    def _execute(self, API):
+    def _execute(self, API, backend):
         if API == None:
-            backend = Aer.get_backend('qasm_simulator')
+            backend = Aer.get_backend(backend)
             count = execute(self._qc, backend, shots=1).result().get_counts(self._qc)
             print("Measured : ", count)
             nilai = list(count.keys())[list(count.values()).index(1)]
@@ -100,7 +100,7 @@ class FullAdder:
             print("Result = %i" % measured_int)
         else:
             provider = IBMQ.enable_account(API)
-            backend = provider.get_backend('ibmq_qasm_simulator')
+            backend = provider.get_backend(backend)
             job_exp = execute(self._qc, backend = backend, shots=1)
             job_monitor(job_exp)
             result = job_exp.result()
