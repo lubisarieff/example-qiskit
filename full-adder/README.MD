@@ -8,5 +8,8 @@ Before you run test_full_adder.py, you must install
 python test_full_adder.py
 ```
 
+## EXAMPLE
+![Example](/full-adder/img/example-test-full-adder.png)
+
 ## Author
 Arief Muhammad Lubis
