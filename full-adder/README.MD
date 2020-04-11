@@ -25,4 +25,4 @@ changeBackend = FullAdder(firstNumber, secondNumber, API=YOUR_API_TOKEN, backend
 ```
 
 ## Author
-Arief Muhammad
+Arief Muhammad Lubis
