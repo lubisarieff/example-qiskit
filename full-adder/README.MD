@@ -5,7 +5,8 @@ Before you run test_full_adder.py, you must install
 
 ## USAGE
 ```
-python3 test_full_adder.py
+python test_full_adder.py
 ```
+
 ## Author
 Arief Muhammad Lubis
